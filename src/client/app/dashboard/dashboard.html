@@ -1,0 +1,31 @@
+<div id="dashboard-view" ng-cloak>
+    <div class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
+        <div flex="30" flex-sm="50" flex-xs="100" layout="column" ng-repeat="b in vm.books | filter: vm.filter">
+           <md-card>
+                <md-card-title>
+                    <md-card-title-text style="padding-right: 20px">
+                        <span class="md-title">{{b.name}}</span>
+                        <span class="md-subhead">{{b.author.name}}</span>
+                        <span flex></span>
+                        <span layout="row">
+                            <div>
+                                <md-icon>grade</md-icon>
+                                {{b.likes}}
+                            </div>
+                            <span flex></span>
+                            <div>
+                                {{b.relativePublished}}
+                            </div>
+                        </span>
+                    </md-card-title-text>
+                    <md-card-title-media>
+                        <div class="md-media-lg book-cover-portrait">
+                            <img ng-src="{{b.cover + 'technics/' + ($index+1)%10}}"
+                                 alt="Book Cover">
+                        </div>
+                    </md-card-title-media>
+                </md-card-title>
+            </md-card>
+        </div>
+    </div>
+</div>
