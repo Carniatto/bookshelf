@@ -16,7 +16,7 @@ function getBooks(req, res, next) {
 }
 
 function getBook(req, res, next) {
-    var id = +req.params.id;
+    var id = _.isUndefined(req.params.id) ? 0 : req.params.id;
     var book = _.findWhere(data, {'id': id});
 
     if (book) {

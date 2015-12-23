@@ -1,6 +1,6 @@
 <div ng-controller="ShellController as vm" flex layout="column">
 
-    <md-toolbar md-scroll-shrink="" layout="row">
+    <md-toolbar md-scroll-shrink="" layout="row" style="position:fixed">
         <div class="md-toolbar-tools">
             <h1>Bookshelf App</h1>
             <span flex></span>
@@ -14,8 +14,6 @@
     </md-toolbar>
        <!-- Container #4 -->
 
-   <md-content ui-view></md-content>
-
-
+   <md-content ui-view style="padding-top: 64px"></md-content>
 
 </div>
