@@ -110,8 +110,9 @@ The `blocks.router` module contains a routing helper module that assists in addi
 
 1. Move filtering logic to dedicated service to keep the controller lean.
 2. Move the pagination logic to dedicated service to keep the controller lean.
-3. Improve documentation on framework modules
-4. Add E2E protractor testing
+3. Add some animation to make the UX more appealing
+4. Improve documentation on framework modules
+5. Add E2E protractor testing
 
 ## License
 
