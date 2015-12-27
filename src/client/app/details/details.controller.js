@@ -9,20 +9,23 @@
     /* @ngInject */
     function DetailsController($q, dataservice, logger, moment, $stateParams) {
         var vm = this;
-        vm.news = {
-            title: 'bookshelf',
-            description: 'Hot Towel Angular is a SPA template for Angular developers.'
-        };
         vm.id = $stateParams.id;
         vm.book = {};
-        vm.title = 'Details';
+        vm.related = {};
 
         activate();
 
         function activate() {
-            var promises = [getBook(vm.id)];
+            var promises = [getBook(), getRelatedBooks()];
             return $q.all(promises).then(function() {
-                logger.info('Activated Dashboard View');
+                logger.info('Activated Details View');
+            });
+        }
+
+        function getRelatedBooks() {
+            return dataservice.getRelatedBooks(vm.id).then(function (data) {
+                vm.related = data;
+                return vm.related;
             });
         }
 

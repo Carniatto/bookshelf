@@ -1,0 +1,27 @@
+<a ui-sref="details({id: vm.b.id})">
+    <md-card>
+        <md-card-title>
+            <md-card-title-text style="padding-right: 20px">
+                <span class="md-title">{{vm.b.name}}</span>
+                <span class="md-subhead">{{vm.b.author.name}}</span>
+                <span flex></span>
+                <span layout="row" layout-align="center end">
+                    <div layout="column">
+                        <md-icon>grade</md-icon>
+                        {{vm.b.likes}}
+                    </div>
+                    <span flex></span>
+                    <div>
+                        {{vm.b.published | fromNow}}
+                    </div>
+                </span>
+            </md-card-title-text>
+            <md-card-title-media>
+                <div class="md-media-lg book-cover-portrait">
+                    <img ng-src="{{vm.b.cover}}"
+                         alt="Book Cover">
+                </div>
+            </md-card-title-media>
+        </md-card-title>
+    </md-card>
+</a>

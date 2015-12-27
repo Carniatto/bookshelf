@@ -7,6 +7,7 @@ router.get('/books', getBooks);
 router.get('/book/:id', getBook);
 router.get('/genres', getGenres);
 router.get('/categories', getCategories);
+router.get('/related/:id', getRelatedBooks);
 router.get('/*', four0four.notFoundMiddleware);
 
 module.exports = router;
@@ -44,4 +45,20 @@ function getCategories(req, res, next) {
                       .unique()
                       .value();
     res.status(200).send(categories);
+}
+
+function getRelatedBooks(req, res, next) {
+    var id = _.isUndefined(req.params.id) ? 0 : req.params.id;
+    var book = _.findWhere(data, {'id': id});
+
+    if (book) {
+        var related = _.chain(data)
+                       .reject({'id':id})
+                       .where({'genre':book.genre})
+                       .take(3)
+                       .value();
+        res.status(200).send(related);
+    } else {
+        four0four.send404(req, res, 'book ' + id + ' not found');
+    }
 }

@@ -14,12 +14,15 @@
         vm.filteredData = [];
         vm.books = [];
         vm.page = [];
+        vm.selectedGenre = [];
+        vm.selectedCategory = [];
+        vm.search = '';
         vm.filterData = filterData;
         vm.resetData = resetData;
+
+        // pagination variable and functions
         vm.pageSize = 10;
         vm.currentPage = 1;
-        vm.firstPage = 1;
-        vm.lastPage = 1;
         vm.goNext = goNext;
         vm.goPrevious = goPrevious;
 
@@ -48,9 +51,6 @@
 
         function getBooks() {
             return dataservice.getBooks().then(function (data) {
-                _.map(data, function (book) {
-                    book.relativePublished = moment(book.published).fromNow();
-                });
                 vm.books = data;
                 vm.filteredData = data;
                 vm.page = getPage(data);
@@ -59,31 +59,31 @@
         }
 
         function resetData() {
-            delete vm.selectedGenre;
-            delete vm.selectedCategory;
-            delete vm.search;
+            vm.selectedGenre = [];
+            vm.selectedCategory = [];
+            vm.search = '';
             vm.currentPage = 1;
             vm.page = getPage(vm.books);
         }
 
         function getPage(data) {
             vm.firstPage = vm.currentPage === 1;
-            vm.lastPage = vm.currentPage >= (data.length/vm.pageSize);
-            var page = _.take(_.slice(data, vm.pageSize*(vm.currentPage-1)), vm.pageSize);
-            logger.info('showing ' + (vm.pageSize*(vm.currentPage-1)) + ' to ' + vm.pageSize*vm.currentPage, vm.books)
+            vm.lastPage = vm.currentPage >= (data.length / vm.pageSize);
+            var page = _.take(_.slice(data, vm.pageSize * (vm.currentPage - 1)), vm.pageSize);
             return page;
         }
 
         function goNext() {
-            vm.currentPage = (vm.currentPage < vm.filteredData.length/vm.pageSize) ? vm.currentPage+1 : vm.currentPage;
+            var pageCount = vm.filteredData.length / vm.pageSize;
+            vm.currentPage = (vm.currentPage < pageCount) ? vm.currentPage + 1 : vm.currentPage;
             vm.page = getPage(vm.filteredData);
-            $window.scrollTo(0,0);
+            $window.scrollTo(0, 0);
         }
 
         function goPrevious() {
-            vm.currentPage = (vm.currentPage > 1) ? vm.currentPage-1 : vm.currentPage;
+            vm.currentPage = (vm.currentPage > 1) ? vm.currentPage - 1 : vm.currentPage;
             vm.page = getPage(vm.filteredData);
-            $window.scrollTo(0,0);
+            $window.scrollTo(0, 0);
 
         }
 
@@ -95,17 +95,17 @@
                 var matchCategory = true;
                 var matchGenre = true;
 
-                if(!_.isUndefined(vm.search) && vm.search.length ){
+                if (vm.search) {
                     var searchCriteria = vm.search.toLowerCase();
                     matchTitle  = _.includes(book.name.toLowerCase(), searchCriteria);
                     matchAuthor = _.includes(book.author.name.toLowerCase(), searchCriteria);
                 }
 
-                if(!_.isUndefined(vm.selectedGenre)){
+                if (vm.selectedGenre.length) {
                     matchGenre = _.includes(vm.selectedGenre, book.genre.name);
                 }
 
-                if(!_.isUndefined(vm.selectedCategory)){
+                if (vm.selectedCategory.length) {
                     matchCategory = _.includes(vm.selectedCategory, book.genre.category);
                 }
 

@@ -12,6 +12,7 @@
         };
         return service;
 
+        /* istanbul ignore next */
         function catcher(message) {
             return function(e) {
                 var thrownDescription;

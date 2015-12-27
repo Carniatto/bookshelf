@@ -12,12 +12,11 @@
             getBooks: getBooks,
             getBook: getBook,
             getGenres: getGenres,
-            getCategories: getCategories
+            getCategories: getCategories,
+            getRelatedBooks: getRelatedBooks
         };
 
         return service;
-
-        function getMessageCount() { return $q.when(72); }
 
         function getBooks() {
             return $http.get('/api/books')
@@ -28,6 +27,7 @@
                 return response.data;
             }
 
+            /* istanbul ignore next */
             function fail(e) {
                 return exception.catcher('XHR Failed for getBooks')(e);
             }
@@ -42,6 +42,7 @@
                 return response.data;
             }
 
+            /* istanbul ignore next */
             function fail(e) {
                 return exception.catcher('XHR Failed for getBook')(e);
             }
@@ -56,6 +57,7 @@
                 return response.data;
             }
 
+            /* istanbul ignore next */
             function fail(e) {
                 return exception.catcher('XHR Failed for getGenres')(e);
             }
@@ -70,8 +72,24 @@
                 return response.data;
             }
 
+            /* istanbul ignore next */
             function fail(e) {
                 return exception.catcher('XHR Failed for getCategories')(e);
+            }
+        }
+
+        function getRelatedBooks(id) {
+            return $http.get('/api/related/' + id)
+                .then(success)
+                .catch(fail);
+
+            function success(response) {
+                return response.data;
+            }
+
+            /* istanbul ignore next */
+            function fail(e) {
+                return exception.catcher('XHR Failed for getRelatedBooks')(e);
             }
         }
     }

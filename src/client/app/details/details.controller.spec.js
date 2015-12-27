@@ -1,45 +1,39 @@
 /* jshint -W117, -W030 */
-describe('DashboardController', function() {
+describe('DetailsController', function() {
     var controller;
-    var people = mockData.getMockPeople();
+    var book = mockData.getMockBook();
+    var relatedBooks = mockData.getMockRelated();
 
-    beforeEach(function() {
-        bard.appModule('app.dashboard');
+    beforeEach(function () {
+        bard.appModule('app.details');
         bard.inject('$controller', '$log', '$q', '$rootScope', 'dataservice');
     });
 
     beforeEach(function () {
-        sinon.stub(dataservice, 'getPeople').returns($q.when(people));
-        controller = $controller('DashboardController');
+        sinon.stub(dataservice, 'getBook').returns($q.when(book));
+        sinon.stub(dataservice, 'getRelatedBooks').returns($q.when(relatedBooks));
+        controller = $controller('DetailsController');
         $rootScope.$apply();
     });
 
     bard.verifyNoOutstandingHttpRequests();
 
-    describe('Dashboard controller', function() {
+    describe('Details controller', function () {
         it('should be created successfully', function () {
             expect(controller).to.be.defined;
         });
 
         describe('after activate', function() {
-            it('should have title of Dashboard', function () {
-                expect(controller.title).to.equal('Dashboard');
-            });
-
             it('should have logged "Activated"', function() {
                 expect($log.info.logs).to.match(/Activated/);
             });
 
-            it('should have news', function () {
-                expect(controller.news).to.not.be.empty;
+            it('should have at least 1 book', function () {
+                expect(controller.book).to.exist;
             });
 
-            it('should have at least 1 person', function () {
-                expect(controller.people).to.have.length.above(0);
-            });
-
-            it('should have people count of 5', function () {
-                expect(controller.people).to.have.length(7);
+            it('should have related books count of at least 3', function () {
+                expect(controller.related).to.have.length.of.at.most(3);
             });
         });
     });

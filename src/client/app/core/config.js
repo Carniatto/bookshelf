@@ -24,6 +24,7 @@
     configure.$inject = ['$logProvider', 'routerHelperProvider', 'exceptionHandlerProvider'];
     /* @ngInject */
     function configure($logProvider, routerHelperProvider, exceptionHandlerProvider) {
+        /* istanbul ignore next */
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }

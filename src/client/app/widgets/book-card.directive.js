@@ -2,24 +2,24 @@
     'use strict';
 
     angular
-        .module('app.layout')
-        .directive('htTopNav', htTopNav);
+        .module('app.widgets')
+        .directive('bookCard', bookCard);
 
     /* @ngInject */
-    function htTopNav () {
+    function bookCard () {
         var directive = {
             bindToController: true,
-            controller: TopNavController,
+            controller: BookCardController,
             controllerAs: 'vm',
-            restrict: 'EA',
+            restrict: 'E',
             scope: {
-                'navline': '='
+                'b': '=book'
             },
-            templateUrl: 'app/layout/ht-top-nav.html'
+            templateUrl: 'app/widgets/book-card.html'
         };
 
         /* @ngInject */
-        function TopNavController() {
+        function BookCardController() {
             var vm = this;
         }
 

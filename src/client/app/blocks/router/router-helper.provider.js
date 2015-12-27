@@ -60,6 +60,8 @@
                 // Route cancellation:
                 // On routing error, go to the dashboard.
                 // Provide an exit clause if it tries to do it twice.
+
+                /* istanbul ignore next */
                 $rootScope.$on('$stateChangeError',
                     function(event, toState, toParams, fromState, fromParams, error) {
                         if (handlingStateChangeError) {

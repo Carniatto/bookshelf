@@ -1,8 +1,34 @@
 <div id="details-view" ng-cloak>
-    <div class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
-        <h1>Introduction</h1>
-        <p ng-repeat="p in vm.book.introduction">
-            {{p.content}}
-        </p>
+    <div class="md-padding" layout-margin layout="row">
+        <div class="details-frame" layout="column" flex>
+            <span class="md-title">{{vm.book.name}}</span>
+            <span class="md-subhead">{{vm.book.description}}</span>
+            <span flex></span>
+            <h4>Categories</h4>
+            <p>
+                <span class="category">{{vm.book.genre.category}}</span>,
+                <span class="category">{{vm.book.genre.name}}</span>
+            </p>
+        </div>
+        <div class="author-frame" layout="column" layout-align="center end">
+            written by <h3>{{vm.book.author.name}}</h3>
+            <img ng-src="{{vm.book.author.avatar}}" />
+        </div>
+    </div>
+    <div class="md-padding" layout="row" layout-align="center start">
+        <div class="preview-page" layout="column" flex-gt-sm="80">
+            <h1 align="center">Introduction</h1>
+            <p align="justify" ng-repeat="p in vm.book.introduction">
+                {{p.content}}
+            </p>
+        </div>
+    </div>
+    <div class="md-padding">
+        <h2>Also recommended</h2>
+    </div>
+    <div layout="row" layout-align="center" layout-wrap>
+        <div ng-repeat="b in vm.related" layout="column" flex-gt-md="33" flex="50" flex-xs="100">
+            <book-card book="b" />
+        </div>
     </div>
 </div>
