@@ -1,6 +1,12 @@
 (function() {
     'use strict';
 
+    /**
+    * @ngdoc factory
+    * @name logger
+    * @description
+    *   Handles application logging functions.
+    */
     angular
         .module('blocks.logger')
         .factory('logger', logger);

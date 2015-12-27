@@ -6,6 +6,14 @@
         .controller('DetailsController', DetailsController);
 
     DetailsController.$inject = ['$q', 'dataservice', 'logger', 'moment', '$stateParams'];
+
+    /**
+    * @ngdoc cotroller
+    * @name DetailsController
+    * @description
+    *   Responsible for the deatails view. There the book details
+    * are preseted
+    */
     /* @ngInject */
     function DetailsController($q, dataservice, logger, moment, $stateParams) {
         var vm = this;
@@ -15,6 +23,11 @@
 
         activate();
 
+        /**
+        * handles the promises needed for the view.
+        * @memberof DetailsController
+        * @returns {Promise} overall promise chain
+        */
         function activate() {
             var promises = [getBook(), getRelatedBooks()];
             return $q.all(promises).then(function() {
@@ -22,6 +35,11 @@
             });
         }
 
+        /**
+        * retrieves through dataservice related book list.
+        * @memberof DetailsController
+        * @returns {Promise} overall promise chain
+        */
         function getRelatedBooks() {
             return dataservice.getRelatedBooks(vm.id).then(function (data) {
                 vm.related = data;
@@ -29,6 +47,11 @@
             });
         }
 
+        /**
+        * retrieves through dataservice book details.
+        * @memberof DetailsController
+        * @returns {Promise} overall promise chain
+        */
         function getBook() {
             return dataservice.getBook(vm.id).then(function (data) {
                 vm.book = data;

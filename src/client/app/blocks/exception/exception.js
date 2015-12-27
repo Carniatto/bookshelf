@@ -1,6 +1,12 @@
 (function() {
     'use strict';
 
+    /**
+    * @ngdoc factory
+    * @name exception
+    * @description
+    *   Handles application exceptions.
+    */
     angular
         .module('blocks.exception')
         .factory('exception', exception);
