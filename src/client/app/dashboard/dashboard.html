@@ -1,6 +1,33 @@
 <div id="dashboard-view" ng-cloak>
-    <div class="md-padding" layout="row" layout-wrap layout-align="center start" layout-xs="column">
-        <div flex="30" flex-md="50" flex-sm="100" flex-xs="100" layout="column" ng-repeat="b in vm.books | filter: vm.filter">
+    <form>
+        <div layout="row" layout-xs="column" layout-margin layout-align-gt-xs="center center">
+            <md-input-container md-detect-hidden class="md-block hide-error">
+                <label>Filter</label>
+                <input ng-model="vm.search" aria-label="Search">
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Category</label>
+                <md-select ng-model="vm.selectedCategory" multiple aria-label="Category">
+                    <md-option ng-repeat="c in vm.categories" value="{{c}}">
+                        {{c}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Genre</label>
+                <md-select ng-model="vm.selectedGenre" multiple aria-label="Genre">
+                    <md-option ng-repeat="g in vm.genres" value="{{g}}">
+                        {{g}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+            <md-button class="md-raised md-primary" ng-click="vm.filterData()">Filter</md-button>
+            <md-button class="md-raised md-secondary" ng-click="vm.resetData()">Reset</md-button>
+        </div>
+    </form>
+    <div class="md-padding" layout="row" layout-wrap layout-align="center start">
+        <div flex-lg="30" flex-gt-xs="50" flex="100" layout="column"
+             ng-repeat="b in vm.page">
             <a ui-sref="details({id: b.id})">
                 <md-card>
                     <md-card-title>
@@ -21,7 +48,7 @@
                         </md-card-title-text>
                         <md-card-title-media>
                             <div class="md-media-lg book-cover-portrait">
-                                <img ng-src="{{b.cover + 'technics/' + ($index+1)%10}}"
+                                <img ng-src="{{b.cover + 'nightlife/' + ($index+1)%10}}"
                                      alt="Book Cover">
                             </div>
                         </md-card-title-media>
@@ -30,4 +57,9 @@
             </a>
         </div>
     </div>
+    <div class="md-padding" layout="row" layout-wrap layout-align="center start">
+        <md-button class="md-raised md-primary" ng-click="vm.goPrevious()" ng-hide="vm.firstPage">Previous</md-button>
+        <md-button class="md-raised md-primary" ng-click="vm.goNext()" ng-hide="vm.lastPage">Next</md-button>
+    </div>
+
 </div>

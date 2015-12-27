@@ -30,10 +30,6 @@ describe('DashboardController', function() {
                 expect($log.info.logs).to.match(/Activated/);
             });
 
-            it('should have news', function () {
-                expect(controller.news).to.not.be.empty;
-            });
-
             it('should have at least 1 person', function () {
                 expect(controller.people).to.have.length.above(0);
             });

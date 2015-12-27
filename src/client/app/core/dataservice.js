@@ -11,7 +11,8 @@
         var service = {
             getBooks: getBooks,
             getBook: getBook,
-            getMessageCount: getMessageCount
+            getGenres: getGenres,
+            getCategories: getCategories
         };
 
         return service;
@@ -43,6 +44,34 @@
 
             function fail(e) {
                 return exception.catcher('XHR Failed for getBook')(e);
+            }
+        }
+
+        function getGenres() {
+            return $http.get('/api/genres')
+                .then(success)
+                .catch(fail);
+
+            function success(response) {
+                return response.data;
+            }
+
+            function fail(e) {
+                return exception.catcher('XHR Failed for getGenres')(e);
+            }
+        }
+
+        function getCategories() {
+            return $http.get('/api/categories')
+                .then(success)
+                .catch(fail);
+
+            function success(response) {
+                return response.data;
+            }
+
+            function fail(e) {
+                return exception.catcher('XHR Failed for getCategories')(e);
             }
         }
     }

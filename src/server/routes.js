@@ -5,6 +5,8 @@ var data = require('./books');
 
 router.get('/books', getBooks);
 router.get('/book/:id', getBook);
+router.get('/genres', getGenres);
+router.get('/categories', getCategories);
 router.get('/*', four0four.notFoundMiddleware);
 
 module.exports = router;
@@ -24,4 +26,22 @@ function getBook(req, res, next) {
     } else {
         four0four.send404(req, res, 'book ' + id + ' not found');
     }
+}
+
+function getGenres(req, res, next) {
+    var genres = _.chain(data)
+                 .pluck('genre')
+                 .pluck('name')
+                 .unique()
+                 .value();
+    res.status(200).send(genres);
+}
+
+function getCategories(req, res, next) {
+    var categories = _.chain(data)
+                      .pluck('genre')
+                      .pluck('category')
+                      .unique()
+                      .value();
+    res.status(200).send(categories);
 }
